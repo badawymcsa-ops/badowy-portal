@@ -1,5 +1,6 @@
 import type { Service } from "@prisma/client";
 import Link from "next/link";
+import { BrandingIcon } from "@/components/brand-icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DeleteServiceButton } from "@/features/services/components/delete-service-button";
 import { deleteServiceAction } from "@/server/actions/services/delete-service";
@@ -12,10 +13,15 @@ type ServiceCardProps = {
 
 export function ServiceCard({ service, locale }: ServiceCardProps) {
   return (
-    <Card>
+    <Card className="bd-gradient-border bd-hover-lift">
       <CardHeader>
-        <CardTitle className="text-lg">{service.name}</CardTitle>
-        <p className="text-sm text-bd-muted">{service.duration || "مدة غير محددة"}</p>
+        <div className="flex items-start gap-3">
+          <BrandingIcon className="h-10 w-10 shrink-0" />
+          <div>
+            <CardTitle className="text-lg">{service.name}</CardTitle>
+            <p className="text-sm text-bd-muted">{service.duration || "مدة غير محددة"}</p>
+          </div>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-4">
         <p className="line-clamp-3 text-sm leading-7 text-bd-muted">{service.description}</p>

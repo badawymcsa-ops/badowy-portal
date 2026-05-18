@@ -12,11 +12,14 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bd-button-gradient border-transparent hover:opacity-95",
+  primary:
+    "bd-button-gradient border-transparent shadow-glow hover:-translate-y-0.5 hover:shadow-[0_18px_48px_rgba(168,85,247,0.38)] active:translate-y-0",
   secondary:
-    "border-bd-border bg-white/[0.04] text-bd-text hover:border-white/25 hover:bg-white/[0.07]",
-  ghost: "border-transparent bg-transparent text-bd-muted hover:bg-white/[0.06] hover:text-bd-text",
-  danger: "border-bd-danger/30 bg-bd-danger/10 text-rose-100 hover:bg-bd-danger/20"
+    "border-bd-border bg-white/[0.045] text-bd-text shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:-translate-y-0.5 hover:border-bd-violet/50 hover:bg-white/[0.075] active:translate-y-0",
+  ghost:
+    "border-transparent bg-transparent text-bd-muted hover:bg-white/[0.06] hover:text-bd-text active:bg-white/[0.09]",
+  danger:
+    "border-bd-danger/30 bg-bd-danger/10 text-rose-100 hover:-translate-y-0.5 hover:bg-bd-danger/20 active:translate-y-0"
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -31,7 +34,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       type={type}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-bd border font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bd-violet/70 disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center gap-2 rounded-bd border font-medium transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bd-violet/70 disabled:pointer-events-none disabled:translate-y-0 disabled:opacity-50",
         variantClasses[variant],
         sizeClasses[size],
         className

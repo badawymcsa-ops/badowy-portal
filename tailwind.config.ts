@@ -46,7 +46,7 @@ const config: Config = {
           "radial-gradient(circle at top, rgba(168, 85, 247, 0.18), transparent 36%)"
       },
       borderRadius: {
-        bd: "8px"
+        bd: "16px"
       }
     }
   },

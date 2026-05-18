@@ -1,6 +1,9 @@
+import { CampaignIcon } from "@/components/brand-icons";
 import { AuthMessage } from "@/components/feedback/auth-message";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { Select } from "@/components/ui/select";
 import { AdminFilters, AdminRequestCard } from "@/features/admin/components";
 import { REQUEST_STATUS_LABELS_AR, REQUEST_STATUSES } from "@/lib/constants/request-statuses";
@@ -69,13 +72,15 @@ export default async function AdminRequestsPage({ params, searchParams }: AdminR
       </AdminFilters>
 
       {requests.length > 0 ? (
-        <div className="grid gap-4">
+        <StaggerContainer className="grid gap-4">
           {requests.map((request) => (
-            <AdminRequestCard key={request.id} request={request} locale={locale} />
+            <MotionCard key={request.id}>
+              <AdminRequestCard request={request} locale={locale} />
+            </MotionCard>
           ))}
-        </div>
+        </StaggerContainer>
       ) : (
-        <EmptyState title="لا توجد طلبات مطابقة" description="جرّب تغيير الفلاتر أو إزالة البحث الحالي." />
+        <EmptyState title="لا توجد طلبات مطابقة" description="جرّب تغيير الفلاتر أو إزالة البحث الحالي." icon={<CampaignIcon className="h-10 w-10" />} />
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DeliverableIcon } from "@/components/brand-icons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -37,15 +38,18 @@ export function DeliverableCard({ deliverable, locale, showReviewLink = true }: 
   const openRevisions = deliverable.revisions?.filter((revision) => revision.status === "OPEN" || revision.status === "IN_PROGRESS").length ?? 0;
 
   return (
-    <Card>
+    <Card className="bd-gradient-border bd-hover-lift">
       <CardHeader>
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
-            <CardTitle className="text-lg">{deliverable.title}</CardTitle>
-            <p className="mt-2 text-sm text-bd-muted">
-              {deliverable.versionLabel}
-              {deliverable.campaignRequest?.title ? ` · ${deliverable.campaignRequest.title}` : ""}
-            </p>
+          <div className="flex items-start gap-3">
+            <DeliverableIcon className="h-10 w-10 shrink-0" />
+            <div>
+              <CardTitle className="text-lg">{deliverable.title}</CardTitle>
+              <p className="mt-2 text-sm text-bd-muted">
+                {deliverable.versionLabel}
+                {deliverable.campaignRequest?.title ? ` · ${deliverable.campaignRequest.title}` : ""}
+              </p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-2">
             {openRevisions > 0 ? <Badge tone="danger">{openRevisions} تعديل مفتوح</Badge> : null}

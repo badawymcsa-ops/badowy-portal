@@ -1,5 +1,6 @@
 import type { Product } from "@prisma/client";
 import Link from "next/link";
+import { SoftwareIcon } from "@/components/brand-icons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DeleteProductButton } from "@/features/products/components/delete-product-button";
@@ -17,12 +18,15 @@ type ProductCardProps = {
 
 export function ProductCard({ product, locale }: ProductCardProps) {
   return (
-    <Card>
+    <Card className="bd-gradient-border bd-hover-lift">
       <CardHeader>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
+          <div className="flex items-start gap-3">
+            <SoftwareIcon className="h-10 w-10 shrink-0" />
+            <div>
             <CardTitle className="text-lg">{product.name}</CardTitle>
             <p className="mt-2 text-sm text-bd-muted">{product.category || "بدون تصنيف"}</p>
+            </div>
           </div>
           <Badge tone={PRODUCT_AVAILABILITY_TONES[product.availability]}>
             {PRODUCT_AVAILABILITY_LABELS[product.availability]}

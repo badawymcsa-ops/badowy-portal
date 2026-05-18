@@ -1,0 +1,13 @@
+export { ApprovalIcon } from "@/components/brand-icons/approval-icon";
+export { AutomationIcon } from "@/components/brand-icons/automation-icon";
+export { BrandingIcon } from "@/components/brand-icons/branding-icon";
+export { CampaignIcon } from "@/components/brand-icons/campaign-icon";
+export { ContentIcon } from "@/components/brand-icons/content-icon";
+export { DeliverableIcon } from "@/components/brand-icons/deliverable-icon";
+export { MarketingIcon } from "@/components/brand-icons/marketing-icon";
+export { MohakkamIcon } from "@/components/brand-icons/mohakkam-icon";
+export { PortalIcon } from "@/components/brand-icons/portal-icon";
+export { RevisionIcon } from "@/components/brand-icons/revision-icon";
+export { SoftwareIcon } from "@/components/brand-icons/software-icon";
+export { SportsIcon } from "@/components/brand-icons/sports-icon";
+export type { BrandIconProps } from "@/components/brand-icons/icon-core";

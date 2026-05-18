@@ -1,5 +1,8 @@
+import { PortalIcon } from "@/components/brand-icons";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/features/requests/format";
@@ -25,14 +28,18 @@ export default async function AdminTeamPage({ params }: AdminTeamPageProps) {
       />
 
       {teamMembers.length > 0 ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <StaggerContainer className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {teamMembers.map((member) => (
-            <Card key={member.id}>
+            <MotionCard key={member.id}>
+            <Card className="bd-gradient-border bd-hover-lift">
               <CardHeader>
                 <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <CardTitle className="text-lg">{member.name ?? member.email}</CardTitle>
-                    <p className="mt-2 text-sm text-bd-muted">{member.email}</p>
+                  <div className="flex items-start gap-3">
+                    <PortalIcon className="h-10 w-10 shrink-0" />
+                    <div>
+                      <CardTitle className="text-lg">{member.name ?? member.email}</CardTitle>
+                      <p className="mt-2 text-sm text-bd-muted">{member.email}</p>
+                    </div>
                   </div>
                   <Badge tone={member.role === "VIEWER" ? "default" : "info"}>{USER_ROLE_LABELS_AR[member.role]}</Badge>
                 </div>
@@ -45,10 +52,11 @@ export default async function AdminTeamPage({ params }: AdminTeamPageProps) {
                 <p className="text-sm text-bd-muted">تاريخ الإنشاء: {formatDate(member.createdAt)}</p>
               </CardContent>
             </Card>
+            </MotionCard>
           ))}
-        </div>
+        </StaggerContainer>
       ) : (
-        <EmptyState title="لا يوجد أعضاء فريق" description="أضف أعضاء داخليين لاحقًا عند تنفيذ إدارة الفريق." />
+        <EmptyState title="لا يوجد أعضاء فريق" description="أضف أعضاء داخليين لاحقًا عند تنفيذ إدارة الفريق." icon={<PortalIcon className="h-10 w-10" />} />
       )}
     </div>
   );

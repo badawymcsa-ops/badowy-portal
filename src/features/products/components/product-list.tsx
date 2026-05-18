@@ -1,6 +1,9 @@
 import type { Product } from "@prisma/client";
 import Link from "next/link";
+import { SoftwareIcon } from "@/components/brand-icons";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { ProductCard } from "@/features/products/components/product-card";
 import { getProductNewPath } from "@/lib/routes";
 
@@ -15,6 +18,7 @@ export function ProductList({ products, locale }: ProductListProps) {
       <EmptyState
         title="لا توجد منتجات بعد"
         description="ابدأ بإضافة المنتجات الأساسية حتى تصبح جاهزة للاستخدام لاحقًا داخل طلبات الحملات والتصاميم."
+        icon={<SoftwareIcon className="h-10 w-10" />}
         action={
           <Link
             href={getProductNewPath(locale)}
@@ -28,10 +32,12 @@ export function ProductList({ products, locale }: ProductListProps) {
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <StaggerContainer className="grid gap-4 lg:grid-cols-2">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} locale={locale} />
+        <MotionCard key={product.id}>
+          <ProductCard product={product} locale={locale} />
+        </MotionCard>
       ))}
-    </div>
+    </StaggerContainer>
   );
 }

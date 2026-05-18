@@ -1,6 +1,9 @@
+import { PortalIcon } from "@/components/brand-icons";
 import { AuthMessage } from "@/components/feedback/auth-message";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { Select } from "@/components/ui/select";
 import { AdminClientCard, AdminFilters } from "@/features/admin/components";
 import { getAdminClientsPath } from "@/lib/routes";
@@ -49,13 +52,15 @@ export default async function AdminClientsPage({ params, searchParams }: AdminCl
       </AdminFilters>
 
       {clients.length > 0 ? (
-        <div className="grid gap-4">
+        <StaggerContainer className="grid gap-4">
           {clients.map((client) => (
-            <AdminClientCard key={client.id} client={client} locale={locale} />
+            <MotionCard key={client.id}>
+              <AdminClientCard client={client} locale={locale} />
+            </MotionCard>
           ))}
-        </div>
+        </StaggerContainer>
       ) : (
-        <EmptyState title="لا توجد نتائج" description="جرّب تغيير البحث أو إزالة الفلاتر الحالية." />
+        <EmptyState title="لا توجد نتائج" description="جرّب تغيير البحث أو إزالة الفلاتر الحالية." icon={<PortalIcon className="h-10 w-10" />} />
       )}
     </div>
   );

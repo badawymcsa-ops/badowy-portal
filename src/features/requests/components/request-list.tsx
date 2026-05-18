@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { CampaignIcon } from "@/components/brand-icons";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { RequestCard, type RequestWithItems } from "@/features/requests/components/request-card";
 import { getRequestNewPath } from "@/lib/routes";
 
@@ -14,6 +17,7 @@ export function RequestList({ requests, locale }: RequestListProps) {
       <EmptyState
         title="لا توجد طلبات بعد"
         description="أنشئ أول طلب حملة أو تصميم أو موقع حتى يبدأ فريق بدوي بمراجعته وتنظيم العمل حوله."
+        icon={<CampaignIcon className="h-10 w-10" />}
         action={
           <Link
             href={getRequestNewPath(locale)}
@@ -27,10 +31,12 @@ export function RequestList({ requests, locale }: RequestListProps) {
   }
 
   return (
-    <div className="grid gap-4">
+    <StaggerContainer className="grid gap-4">
       {requests.map((request) => (
-        <RequestCard key={request.id} request={request} locale={locale} />
+        <MotionCard key={request.id}>
+          <RequestCard request={request} locale={locale} />
+        </MotionCard>
       ))}
-    </div>
+    </StaggerContainer>
   );
 }

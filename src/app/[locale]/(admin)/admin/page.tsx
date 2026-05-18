@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { ApprovalIcon, CampaignIcon, DeliverableIcon, PortalIcon, RevisionIcon, SoftwareIcon } from "@/components/brand-icons";
+import { SectionReveal } from "@/components/motion/section-reveal";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,12 +21,12 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
   const dashboard = await getAdminDashboard(locale);
 
   const stats = [
-    { title: "إجمالي العملاء", value: dashboard.stats.totalClients, description: "كل حسابات العملاء المسجلة." },
-    { title: "الطلبات الجديدة", value: dashboard.stats.pendingRequests, description: "طلبات تنتظر المراجعة." },
-    { title: "قيد التنفيذ", value: dashboard.stats.inProgressRequests, description: "طلبات يعمل عليها الفريق." },
-    { title: "تعديلات مطلوبة", value: dashboard.stats.revisionRequested, description: "طلبات عادت بتعديلات." },
-    { title: "جاهزة للمراجعة", value: dashboard.stats.reviewReadyRequests, description: "أول تصور أو نسخة نهائية جاهزة." },
-    { title: "تم التسليم", value: dashboard.stats.deliveredRequests, description: "طلبات وصلت إلى التسليم." }
+    { title: "إجمالي العملاء", value: dashboard.stats.totalClients, description: "كل حسابات العملاء المسجلة.", icon: PortalIcon },
+    { title: "الطلبات الجديدة", value: dashboard.stats.pendingRequests, description: "طلبات تنتظر المراجعة.", icon: CampaignIcon },
+    { title: "قيد التنفيذ", value: dashboard.stats.inProgressRequests, description: "طلبات يعمل عليها الفريق.", icon: SoftwareIcon },
+    { title: "تعديلات مطلوبة", value: dashboard.stats.revisionRequested, description: "طلبات عادت بتعديلات.", icon: RevisionIcon },
+    { title: "جاهزة للمراجعة", value: dashboard.stats.reviewReadyRequests, description: "أول تصور أو نسخة نهائية جاهزة.", icon: ApprovalIcon },
+    { title: "تم التسليم", value: dashboard.stats.deliveredRequests, description: "طلبات وصلت إلى التسليم.", icon: DeliverableIcon }
   ];
 
   return (
@@ -56,14 +59,14 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
         }
       />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <StaggerContainer className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {stats.map((stat) => (
           <AdminStatCard key={stat.title} {...stat} />
         ))}
-      </div>
+      </StaggerContainer>
 
-      <div className="grid gap-6 xl:grid-cols-2">
-        <Card>
+      <SectionReveal className="grid gap-6 xl:grid-cols-2">
+        <Card className="bd-gradient-border">
           <CardHeader>
             <CardTitle>أحدث الطلبات</CardTitle>
           </CardHeader>
@@ -78,7 +81,7 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bd-gradient-border">
           <CardHeader>
             <CardTitle>طلبات عاجلة</CardTitle>
           </CardHeader>
@@ -92,9 +95,10 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
             )}
           </CardContent>
         </Card>
-      </div>
+      </SectionReveal>
 
-      <Card>
+      <SectionReveal>
+      <Card className="bd-gradient-border">
         <CardHeader>
           <CardTitle>أحدث التسليمات</CardTitle>
         </CardHeader>
@@ -126,8 +130,10 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
           )}
         </CardContent>
       </Card>
+      </SectionReveal>
 
-      <Card>
+      <SectionReveal>
+      <Card className="bd-gradient-border">
         <CardHeader>
           <CardTitle>عملاء جدد</CardTitle>
         </CardHeader>
@@ -141,6 +147,7 @@ export default async function AdminDashboardPage({ params }: AdminDashboardPageP
           )}
         </CardContent>
       </Card>
+      </SectionReveal>
     </div>
   );
 }

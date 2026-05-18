@@ -1,5 +1,9 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { BrandingIcon, CampaignIcon, DeliverableIcon, PortalIcon, RevisionIcon, SoftwareIcon } from "@/components/brand-icons";
+import { MotionCard } from "@/components/motion/motion-card";
+import { SectionReveal } from "@/components/motion/section-reveal";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/layout/page-header";
@@ -51,6 +55,12 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
   const openRevisions = deliverables.flatMap((deliverable) =>
     deliverable.revisions.filter((revision) => revision.status === "OPEN" || revision.status === "IN_PROGRESS")
   );
+  const dashboardStats = [
+    { title: "المنتجات", value: products.length, description: "منتجات محفوظة", icon: SoftwareIcon },
+    { title: "الخدمات", value: services.length, description: "خدمات محفوظة", icon: BrandingIcon },
+    { title: "طلبات الحملات", value: requests.length, description: `${pendingRequests.length} قيد المراجعة`, icon: CampaignIcon },
+    { title: "التسليمات", value: deliverables.length, description: `${openRevisions.length} تعديل مفتوح`, icon: DeliverableIcon }
+  ];
 
   if (!clientProfile || !brandProfile) {
     redirect(getOnboardingPath(locale));
@@ -65,10 +75,36 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
         actions={<Badge tone="success">الإعداد مكتمل</Badge>}
       />
 
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card>
+      <StaggerContainer className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {dashboardStats.map((stat) => {
+          const Icon = stat.icon;
+
+          return (
+            <MotionCard key={stat.title}>
+              <Card className="bd-gradient-border h-full">
+                <CardContent className="flex items-center justify-between gap-4 pt-6">
+                  <div>
+                    <p className="text-sm text-bd-muted">{stat.title}</p>
+                    <p className="mt-2 text-3xl font-black text-bd-text">{stat.value}</p>
+                    <p className="mt-1 text-xs text-bd-muted">{stat.description}</p>
+                  </div>
+                  <div className="bd-icon-shell h-14 w-14">
+                    <Icon className="h-10 w-10" />
+                  </div>
+                </CardContent>
+              </Card>
+            </MotionCard>
+          );
+        })}
+      </StaggerContainer>
+
+      <SectionReveal className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card className="bd-gradient-border">
           <CardHeader>
-            <CardTitle>ملخص الشركة والبراند</CardTitle>
+            <div className="flex items-center gap-3">
+              <PortalIcon className="h-10 w-10" />
+              <CardTitle>ملخص الشركة والبراند</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-3 md:grid-cols-2">
@@ -91,9 +127,12 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bd-gradient-border">
           <CardHeader>
-            <CardTitle>إجراءات سريعة</CardTitle>
+            <div className="flex items-center gap-3">
+              <CampaignIcon className="h-10 w-10" />
+              <CardTitle>إجراءات سريعة</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="grid gap-3">
             <Link
@@ -128,10 +167,10 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
             </Link>
           </CardContent>
         </Card>
-      </div>
+      </SectionReveal>
 
-      <div className="grid gap-4 xl:grid-cols-3">
-        <Card>
+      <SectionReveal className="grid gap-4 xl:grid-cols-3">
+        <Card className="bd-hover-lift">
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -162,7 +201,7 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bd-hover-lift">
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -193,7 +232,7 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bd-hover-lift">
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -234,10 +273,10 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
             )}
           </CardContent>
         </Card>
-      </div>
+      </SectionReveal>
 
-      <div className="grid gap-4 xl:grid-cols-2">
-        <Card>
+      <SectionReveal className="grid gap-4 xl:grid-cols-2">
+        <Card className="bd-hover-lift">
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -275,9 +314,12 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bd-hover-lift">
           <CardHeader>
-            <CardTitle className="text-base">التعليقات والمراجعات</CardTitle>
+            <div className="flex items-center gap-3">
+              <RevisionIcon className="h-9 w-9" />
+              <CardTitle className="text-base">التعليقات والمراجعات</CardTitle>
+            </div>
           </CardHeader>
           <CardContent>
             <p className="text-sm leading-7 text-bd-muted">
@@ -285,7 +327,7 @@ export default async function ClientDashboardPage({ params }: ClientDashboardPag
             </p>
           </CardContent>
         </Card>
-      </div>
+      </SectionReveal>
     </div>
   );
 }

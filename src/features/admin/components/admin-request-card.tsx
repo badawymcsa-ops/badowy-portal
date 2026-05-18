@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CampaignIcon } from "@/components/brand-icons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -27,16 +28,19 @@ type AdminRequestCardProps = {
 
 export function AdminRequestCard({ request, locale }: AdminRequestCardProps) {
   return (
-    <Card>
+    <Card className="bd-gradient-border bd-hover-lift">
       <CardHeader>
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
-            <CardTitle className="text-lg">{request.title}</CardTitle>
-            <p className="mt-2 text-sm text-bd-muted">
-              {request.clientProfile.companyName ?? request.clientProfile.brandProfile?.brandName ?? "عميل بدون اسم"}
-              {" · "}
-              {request.clientProfile.user?.email}
-            </p>
+          <div className="flex items-start gap-3">
+            <CampaignIcon className="h-10 w-10 shrink-0" />
+            <div>
+              <CardTitle className="text-lg">{request.title}</CardTitle>
+              <p className="mt-2 text-sm text-bd-muted">
+                {request.clientProfile.companyName ?? request.clientProfile.brandProfile?.brandName ?? "عميل بدون اسم"}
+                {" · "}
+                {request.clientProfile.user?.email}
+              </p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-2">
             {request.isUrgent ? <Badge tone="danger">مستعجل</Badge> : null}

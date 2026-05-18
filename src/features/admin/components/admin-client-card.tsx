@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PortalIcon } from "@/components/brand-icons";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/features/requests/format";
@@ -27,14 +28,17 @@ type AdminClientCardProps = {
 
 export function AdminClientCard({ client, locale }: AdminClientCardProps) {
   return (
-    <Card>
+    <Card className="bd-gradient-border bd-hover-lift">
       <CardHeader>
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
-            <CardTitle className="text-lg">
-              {client.companyName ?? client.brandProfile?.brandName ?? client.user.name ?? "عميل بدون اسم"}
-            </CardTitle>
-            <p className="mt-2 text-sm text-bd-muted">{client.user.email}</p>
+          <div className="flex items-start gap-3">
+            <PortalIcon className="h-10 w-10 shrink-0" />
+            <div>
+              <CardTitle className="text-lg">
+                {client.companyName ?? client.brandProfile?.brandName ?? client.user.name ?? "عميل بدون اسم"}
+              </CardTitle>
+              <p className="mt-2 text-sm text-bd-muted">{client.user.email}</p>
+            </div>
           </div>
           <Badge tone={client.onboardingStatus === "COMPLETED" ? "success" : "warning"}>
             {onboardingLabels[client.onboardingStatus] ?? client.onboardingStatus}

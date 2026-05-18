@@ -1,6 +1,9 @@
 import type { Service } from "@prisma/client";
 import Link from "next/link";
+import { BrandingIcon } from "@/components/brand-icons";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { ServiceCard } from "@/features/services/components/service-card";
 import { getServiceNewPath } from "@/lib/routes";
 
@@ -15,6 +18,7 @@ export function ServiceList({ services, locale }: ServiceListProps) {
       <EmptyState
         title="لا توجد خدمات بعد"
         description="أضف الخدمات التي يقدمها البراند حتى تكون جاهزة للاستخدام لاحقًا داخل طلبات الحملات."
+        icon={<BrandingIcon className="h-10 w-10" />}
         action={
           <Link
             href={getServiceNewPath(locale)}
@@ -28,10 +32,12 @@ export function ServiceList({ services, locale }: ServiceListProps) {
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <StaggerContainer className="grid gap-4 lg:grid-cols-2">
       {services.map((service) => (
-        <ServiceCard key={service.id} service={service} locale={locale} />
+        <MotionCard key={service.id}>
+          <ServiceCard service={service} locale={locale} />
+        </MotionCard>
       ))}
-    </div>
+    </StaggerContainer>
   );
 }

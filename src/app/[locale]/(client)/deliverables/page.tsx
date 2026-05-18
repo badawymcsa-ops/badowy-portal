@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { DeliverableIcon } from "@/components/brand-icons";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
+import { MotionCard } from "@/components/motion/motion-card";
+import { StaggerContainer } from "@/components/motion/stagger-container";
 import { DeliverableCard } from "@/features/deliverables";
 import { getRequestsPath } from "@/lib/routes";
 import { getCurrentClientDeliverables } from "@/server/queries/deliverables/get-current-client-deliverables";
@@ -24,15 +27,18 @@ export default async function DeliverablesPage({ params }: DeliverablesPageProps
       />
 
       {deliverables.length > 0 ? (
-        <div className="grid gap-4">
+        <StaggerContainer className="grid gap-4">
           {deliverables.map((deliverable) => (
-            <DeliverableCard key={deliverable.id} deliverable={deliverable} locale={locale} />
+            <MotionCard key={deliverable.id}>
+              <DeliverableCard deliverable={deliverable} locale={locale} />
+            </MotionCard>
           ))}
-        </div>
+        </StaggerContainer>
       ) : (
         <EmptyState
           title="لا توجد تسليمات بعد"
           description="ستظهر التسليمات هنا بعد أن يرفع فريق بدوي أول نسخة للمراجعة."
+          icon={<DeliverableIcon className="h-10 w-10" />}
           action={
             <Link
               href={getRequestsPath(locale)}

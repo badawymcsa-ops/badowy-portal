@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PortalIcon } from "@/components/brand-icons";
 import { routes } from "@/lib/routes";
 
 type PublicFooterProps = {
@@ -22,10 +23,14 @@ const footerServices = [
 export function PublicFooter({ locale }: PublicFooterProps) {
   return (
     <footer className="border-t border-bd-border bg-bd-bg py-12">
+      <div className="h-px bg-gradient-to-l from-transparent via-bd-violet/70 to-transparent" />
       <div className="bd-container grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
-          <Link href={routes.public.home(locale)} className="text-xl font-black text-bd-text">
-            Badowy Marketing & Software Solutions
+          <Link href={routes.public.home(locale)} className="flex items-center gap-3 text-xl font-black text-bd-text">
+            <span className="bd-icon-shell h-11 w-11">
+              <PortalIcon className="h-8 w-8" />
+            </span>
+            <span>Badowy Marketing & Software Solutions</span>
           </Link>
           <p className="mt-3 text-base font-semibold text-bd-violet">بدوي للتسويق والحلول البرمجية</p>
           <p className="mt-4 max-w-sm text-sm leading-7 text-bd-muted">

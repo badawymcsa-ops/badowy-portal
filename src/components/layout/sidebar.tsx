@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PortalIcon } from "@/components/brand-icons";
 import { cn } from "@/lib/utils";
 
 export type SidebarItem = {
@@ -18,13 +19,18 @@ export function Sidebar({ title = "Badowy", eyebrow = "Portal", items, className
   return (
     <aside
       className={cn(
-        "bd-card flex min-h-screen w-full flex-col gap-8 rounded-none border-y-0 border-r-0 p-5 lg:w-72",
+        "bd-card flex min-h-screen w-full flex-col gap-8 rounded-none border-y-0 border-r-0 bg-bd-bg/80 p-5 lg:w-72",
         className
       )}
     >
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-wider text-bd-violet">{eyebrow}</p>
-        <h2 className="mt-2 text-xl font-bold text-bd-text">{title}</h2>
+      <div className="flex items-center gap-3">
+        <span className="bd-icon-shell h-11 w-11">
+          <PortalIcon className="h-8 w-8" />
+        </span>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-bd-violet">{eyebrow}</p>
+          <h2 className="mt-2 text-xl font-bold text-bd-text">{title}</h2>
+        </div>
       </div>
       <nav className="grid gap-2">
         {items.map((item) =>
@@ -40,7 +46,7 @@ export function Sidebar({ title = "Badowy", eyebrow = "Portal", items, className
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-bd px-3 py-2 text-sm text-bd-muted transition hover:bg-white/[0.06] hover:text-bd-text"
+              className="rounded-bd px-3 py-2 text-sm text-bd-muted transition hover:-translate-x-0.5 hover:bg-white/[0.06] hover:text-bd-text"
             >
               {item.label}
             </Link>
