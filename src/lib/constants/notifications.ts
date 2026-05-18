@@ -1,0 +1,10 @@
+export const NOTIFICATION_TYPES = [
+  "REQUEST_STATUS_CHANGED",
+  "DELIVERABLE_UPLOADED",
+  "COMMENT_ADDED",
+  "REVISION_REQUESTED",
+  "REQUEST_APPROVED",
+  "ASSIGNMENT_CREATED"
+] as const;
+
+export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
